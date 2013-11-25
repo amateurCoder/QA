@@ -115,6 +115,65 @@ public class WikipediaParser {
 	 * infoboxPeople.getName() + ":" + infoboxPeople.getBirthDate()); //
 	 * infoboxPeople = parseInfoBox(matched, "people"); return infoboxPeople; }
 	 */
+	public static String parseLinks(String text) {
+		String str = "";
+		
+		String linkRegex = "(\\[{2})|(\\]{2})";
+		text = text.replaceAll(linkRegex, "");
+		
+		String simplelinkRegex = "([\\w\\s\\W]*)(\\|{1})([\\w\\s\\W]*)";
+		String droplineRegex = "([\\w\\s]*)(\\,{0,1})(\\ )([\\w\\W\\s]*)(\\|{1})";
+		
+		if(null!=text){
+			if(text.matches(simplelinkRegex)){
+				str = text.replaceAll(simplelinkRegex, "$3");
+			}
+			else if(text.matches(droplineRegex)){
+				String drPart1 = text.replaceAll(droplineRegex, "$1");
+				str = drPart1;
+			}
+			else{
+				str = text;
+			}
+		}
+		return str;
+	}
+	
+	private String extractText(String linkText){
+		String linkRegex = "(\\[{2})(.*?)(\\]{2})";
+		Pattern pattern = Pattern.compile(linkRegex);
+		Matcher matcher = pattern.matcher(linkText);
+		while(matcher.find())
+		{
+			String temp = matcher.group();
+		    String texturl = parseLinks(temp);
+		    linkText = linkText.replace(temp, texturl);
+		}
+		return linkText;
+	}
+	
+	private String extractDate(String date){
+		String dateReg1 = "([\\w\\s]*)(\\|)(\\d+)(\\|)(\\d+)(\\|)(\\d+)([\\w\\s\\W]*)";
+		String dateReg2 = "([\\w\\s]*)(\\|)([\\w\\s\\W]*?)(\\|)(\\d+)(\\|)(\\d+)(\\|)(\\d+)";
+		
+		if(date.matches(dateReg1))
+			date = date.replaceAll(dateReg1, "$3$5$7");
+		else if(date.matches(dateReg2))
+			date = date.replaceAll(dateReg2, "$5$7$9");
+		
+		return date;
+	}
+	
+	private String extractPopulation(String pop){
+		String popRegex = "([\\d\\,]+)(\\ )(.*)";
+		
+		if(pop.matches(popRegex)){
+			pop = pop.replaceAll(popRegex, "$1");
+		}
+		
+		return pop;
+	}
+	
 	private Infobox parseInfoBox(String matched, String type) {
 		String tempArr[];
 		Infobox infobox = null;
@@ -133,17 +192,21 @@ public class WikipediaParser {
 						if (("name").equals(data[0].trim())) {
 							infobox.setName(data[1].trim());
 						} else if (("birth_place").equals(data[0].trim())) {
-							((InfoboxPeople) infobox).setBirthPlace(data[1]
-									.trim());
+							String place = data[1].trim();
+							place = extractText(place);
+							((InfoboxPeople) infobox).setBirthPlace(place);
 						} else if (("birth_date").equals(data[0].trim())) {
-							((InfoboxPeople) infobox).setBirthDate(data[1]
-									.trim());
+							String date = data[1].trim();
+							date = extractDate(date);
+							((InfoboxPeople) infobox).setBirthDate(date);
 						} else if (("death_place").equals(data[0].trim())) {
-							((InfoboxPeople) infobox).setDeathPlace(data[1]
-									.trim());
+							String place = data[1].trim();
+							place = extractText(place);
+							((InfoboxPeople) infobox).setDeathPlace(place);
 						} else if (("death_date").equals(data[0].trim())) {
-							((InfoboxPeople) infobox).setDeathDate(data[1]
-									.trim());
+							String date = data[1].trim();
+							date = extractDate(date);
+							((InfoboxPeople) infobox).setDeathDate(date);
 						}
 					}
 				}
@@ -155,16 +218,20 @@ public class WikipediaParser {
 						if (("name").equals(data[0].trim())) {
 							infobox.setName(data[1].trim());
 						} else if (("director").equals(data[0].trim())) {
-							((InfoboxFilms) infobox)
-									.setDirector(data[1].trim());
+							String director = data[1].trim();
+							director = extractText(director);
+							((InfoboxFilms) infobox).setDirector(director);
 						} else if (("producer").equals(data[0].trim())) {
-							((InfoboxFilms) infobox)
-									.setProducer(data[1].trim());
+							String producer = data[1].trim();
+							producer = extractText(producer);
+							((InfoboxFilms) infobox).setProducer(producer);
 						} else if (("screenplay").equals(data[0].trim())) {
 							((InfoboxFilms) infobox).setScreenplay(data[1]
 									.trim());
 						} else if (("music").equals(data[0].trim())) {
-							((InfoboxFilms) infobox).setMusic(data[1].trim());
+							String music = data[1].trim();
+							music = extractText(music);
+							((InfoboxFilms) infobox).setMusic(music);
 						} else if (("release_date").equals(data[0].trim())) {
 							((InfoboxFilms) infobox).setReleaseDate(data[1]
 									.trim());
@@ -195,7 +262,10 @@ public class WikipediaParser {
 						if (("name").equals(data[0].trim())) {
 							System.out.println("NAME DATA:" + data[0] + ":"
 									+ data[1]);
-							infobox.setName(data[1].trim());
+							String name = data[1].trim();
+							String[] name_parts = name.split("\\|");
+							infobox.setName(name_parts[0]);
+							//infobox.setName(data[1].trim());
 						} else if (("other_name").equals(data[0].trim())) {
 							((InfoboxPlace) infobox).setOtherNames(data[1]
 									.trim());
@@ -236,28 +306,37 @@ public class WikipediaParser {
 						} else if ((data[0].trim()
 								.matches("subdivision_name.?"))) {
 							if (countryFlag) {
-								((InfoboxPlace) infobox).setCountry(data[1]
-										.trim());
+								String country = data[1].trim();
+								country = extractText(country);
+								((InfoboxPlace) infobox).setCountry(country);
 								countryFlag = false;
 							} else if (stateFlag) {
-								((InfoboxPlace) infobox).setState(data[1]
-										.trim());
+								String state = data[1].trim();
+								state = extractText(state);
+								((InfoboxPlace) infobox).setState(state);
 								stateFlag = false;
 							} else if (districtFlag) {
-								((InfoboxPlace) infobox).setDistrict(data[1]
-										.trim());
+								String district = data[1].trim();
+								district = extractText(district);
+								((InfoboxPlace) infobox).setDistrict(district);
 								districtFlag = false;
 							}
 						} else if ((data[0].trim().matches("leader_title.?"))) {
-							leadersDesignation.add(data[1].trim());
+							String designation = data[1].trim();
+							designation = extractText(designation);
+							leadersDesignation.add(designation);
 						} else if ((data[0].trim().matches("leader_name.?"))) {
-							leaders.add(data[1].trim());
+							String[] leader_parts = data[1].trim().split("\\ \\(");
+							String leader = extractText(leader_parts[0]);
+							//String[] leader_parts = leader.split("\\ \\(");
+							leaders.add(leader);
 						} else if (("area_total_km2").equals(data[0].trim())) {
 							((InfoboxPlace) infobox).setAreaKmSquare(data[1]
 									.trim());
 						} else if (("population_total").equals(data[0].trim())) {
-							((InfoboxPlace) infobox).setTotalPopulation(data[1]
-									.trim());
+							String population = data[1].trim();
+							population = extractPopulation(population);
+							((InfoboxPlace) infobox).setTotalPopulation(population);
 						} else if (("population_as_of").equals(data[0].trim())) {
 							((InfoboxPlace) infobox)
 									.setPopulationMeasuredDate(data[1].trim());
@@ -274,8 +353,9 @@ public class WikipediaParser {
 							((InfoboxPlace) infobox).setCountryCode(data[1]
 									.trim());
 						} else if (data[0].trim().matches("time.?zone")) {
-							((InfoboxPlace) infobox)
-									.setTimezone(data[1].trim());
+							String tzone = data[1].trim();
+							tzone = extractText(tzone);
+							((InfoboxPlace) infobox).setTimezone(tzone);
 						} else if (("utc_offset").equals(data[0].trim())) {
 							((InfoboxPlace) infobox).setUtcOffset(data[1]
 									.trim());

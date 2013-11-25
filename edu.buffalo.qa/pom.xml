@@ -28,6 +28,11 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp</artifactId>
+			<version>3.2.0</version>
+		</dependency>    
 		<!-- <dependency> <artifactId>solr-core</artifactId> <groupId>org.apache.solr</groupId> 
 			<version>1.4.0</version> <type>jar</type> <scope>compile</scope> </dependency> -->
 		<dependency>
