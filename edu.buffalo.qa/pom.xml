@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>tycoonretrievers-QA</groupId>
-	<artifactId>edu.buffalo.qa</artifactId>
+	<artifactId>Indexing</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
