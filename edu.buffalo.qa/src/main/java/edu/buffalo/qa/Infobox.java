@@ -3,25 +3,28 @@ package edu.buffalo.qa;
 import org.apache.solr.client.solrj.beans.Field;
 
 public class Infobox {
-	
-	/*@Field("id")
-	int id;*/
 
 	@Field("id")
 	private String id;
-	
+
 	@Field("name")
 	private String name;
+
+	@Field("description")
+	private String description;
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public String getId() {
 		return id;
 	}
 
-	/*@Field("id")
-	public void setId(int id) {
-		this.id = id;
-	}*/
-	
 	@Field("id")
 	public void setId(String id) {
 		this.id = id;

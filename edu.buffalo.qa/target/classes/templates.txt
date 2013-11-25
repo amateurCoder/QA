@@ -8,6 +8,6 @@ DATA MATCHED:subdivision_type2      : [[Political divisions of the United States
 DATA MATCHED:subdivision_type4      : [[List of counties in Pennsylvania|County]]
 DATA MATCHED:subdivision_type1      : 
 DATA MATCHED:subdivision_type3      : [[Colony|Historic Colony]]
-26 [main] INFO org.apache.solr.client.solrj.impl.HttpClientUtil - Creating new http client, config:maxConnections=128&maxConnectionsPerHost=32&followRedirects=false
-480 [main] INFO org.apache.solr.client.solrj.impl.HttpClientUtil - Creating new http client, config:maxConnections=128&maxConnectionsPerHost=32&followRedirects=false
-491 [main] INFO org.apache.solr.client.solrj.impl.HttpClientUtil - Creating new http client, config:maxConnections=128&maxConnectionsPerHost=32&followRedirects=false
+25 [main] INFO org.apache.solr.client.solrj.impl.HttpClientUtil - Creating new http client, config:maxConnections=128&maxConnectionsPerHost=32&followRedirects=false
+494 [main] INFO org.apache.solr.client.solrj.impl.HttpClientUtil - Creating new http client, config:maxConnections=128&maxConnectionsPerHost=32&followRedirects=false
+509 [main] INFO org.apache.solr.client.solrj.impl.HttpClientUtil - Creating new http client, config:maxConnections=128&maxConnectionsPerHost=32&followRedirects=false

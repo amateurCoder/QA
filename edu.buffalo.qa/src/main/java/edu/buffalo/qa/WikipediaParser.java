@@ -235,7 +235,7 @@ public class WikipediaParser {
 						} else if (("release_date").equals(data[0].trim())) {
 							((InfoboxFilms) infobox).setReleaseDate(data[1]
 									.trim());
-						} else if (("actors").equals(data[0].trim())) {
+						} else if (("starring").equals(data[0].trim())) {
 							((InfoboxFilms) infobox).setActors(data[1].trim());
 						} else if (("country").equals(data[0].trim())) {
 							((InfoboxFilms) infobox).setCountry(data[1].trim());
@@ -290,7 +290,8 @@ public class WikipediaParser {
 										.trim());
 								largestCityFlag = false;
 							}
-						} else if ((data[0].trim().matches("subdivision_type.?"))) {
+						} else if ((data[0].trim()
+								.matches("subdivision_type.?"))) {
 							System.out.println("DATA MATCHED:" + data[0] + ":"
 									+ data[1]);
 							if (data[1].trim().toLowerCase()
@@ -361,10 +362,10 @@ public class WikipediaParser {
 									.trim());
 						}
 					}
-					((InfoboxPlace) infobox).setLeaders(leaders);
-					((InfoboxPlace) infobox)
-							.setLeadersDesignation(leadersDesignation);
 				}
+				((InfoboxPlace) infobox).setLeaders(leaders.toString());
+				((InfoboxPlace) infobox)
+						.setLeadersDesignation(leadersDesignation.toString());
 			}
 		}
 		return infobox;
