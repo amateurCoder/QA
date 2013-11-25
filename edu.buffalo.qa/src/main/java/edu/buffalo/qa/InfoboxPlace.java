@@ -1,7 +1,5 @@
 package edu.buffalo.qa;
 
-import java.util.List;
-
 import org.apache.solr.client.solrj.beans.Field;
 
 public class InfoboxPlace extends Infobox {
@@ -28,13 +26,19 @@ public class InfoboxPlace extends Infobox {
 	@Field("largest_city")
 	private String largestCity;
 
-	@Field("leaders_designation")
+	/*@Field("leaders_designation")
 	private List<String> leadersDesignation;
 	
 	@Field("leaders")
 	private List<String> leaders;
+	*/
 	
-
+	@Field("leaders_designation")
+	private String leadersDesignation;
+	
+	@Field("leaders")
+	private String leaders;
+	
 	@Field("area_km_squares")
 	private String areaKmSquare;
 
@@ -126,7 +130,7 @@ public class InfoboxPlace extends Infobox {
 		this.largestCity = largestCity;
 	}
 
-	public List<String> getLeadersDesignation() {
+	/*public List<String> getLeadersDesignation() {
 		return leadersDesignation;
 	}
 
@@ -140,10 +144,28 @@ public class InfoboxPlace extends Infobox {
 
 	public void setLeaders(List<String> leaders) {
 		this.leaders = leaders;
-	}
+	}*/
+	
+	
 
 	public String getAreaKmSquare() {
 		return areaKmSquare;
+	}
+
+	public String getLeadersDesignation() {
+		return leadersDesignation;
+	}
+
+	public void setLeadersDesignation(String leadersDesignation) {
+		this.leadersDesignation = leadersDesignation;
+	}
+
+	public String getLeaders() {
+		return leaders;
+	}
+
+	public void setLeaders(String leaders) {
+		this.leaders = leaders;
 	}
 
 	public void setAreaKmSquare(String areaKmSquare) {
