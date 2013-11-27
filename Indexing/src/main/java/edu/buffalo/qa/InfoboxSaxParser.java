@@ -42,6 +42,8 @@ public class InfoboxSaxParser extends InfoboxParser implements ContentHandler {
 			 WikipediaParser wikipediaParser = new WikipediaParser(textBuilder.toString());
 			 infobox = wikipediaParser.getInfobox();
 			 if(null!=infobox){
+				 System.out.println("Added:"+ c);
+				 c++;
 				 add(infobox, infoboxes);
 				 if(c==5000){
 					throw new SAXTerminationException(); 
