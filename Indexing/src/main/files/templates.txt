@@ -1,0 +1,13 @@
+NAME DATA: name                    : Agra| native_name             = आगरा
+DATA MATCHED: subdivision_type        : Country
+DATA MATCHED: subdivision_type1       : [[States and territories of India|State]]
+DATA MATCHED: subdivision_type2       : [[List of districts of India|District]]
+NAME DATA:name          : Philadelphia
+DATA MATCHED:subdivision_type       : Country
+DATA MATCHED:subdivision_type2      : [[Political divisions of the United States|Commonwealth]]
+DATA MATCHED:subdivision_type4      : [[List of counties in Pennsylvania|County]]
+DATA MATCHED:subdivision_type1      : 
+DATA MATCHED:subdivision_type3      : [[Colony|Historic Colony]]
+25 [main] INFO org.apache.solr.client.solrj.impl.HttpClientUtil - Creating new http client, config:maxConnections=128&maxConnectionsPerHost=32&followRedirects=false
+494 [main] INFO org.apache.solr.client.solrj.impl.HttpClientUtil - Creating new http client, config:maxConnections=128&maxConnectionsPerHost=32&followRedirects=false
+509 [main] INFO org.apache.solr.client.solrj.impl.HttpClientUtil - Creating new http client, config:maxConnections=128&maxConnectionsPerHost=32&followRedirects=false
