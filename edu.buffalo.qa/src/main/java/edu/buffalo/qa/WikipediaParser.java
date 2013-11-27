@@ -152,6 +152,23 @@ public class WikipediaParser {
 		return linkText;
 	}
 	
+	private String extractList(String list){
+		int length;
+		String extList = "";
+		String linkRegex = "(\\[{2})(.*?)(\\]{2})";
+		Pattern pattern = Pattern.compile(linkRegex);
+		Matcher matcher = pattern.matcher(list);
+		while(matcher.find())
+		{
+			String temp = matcher.group();
+		    String texturl = parseLinks(temp);
+		    extList = extList + texturl + ", ";
+		    //linkText = linkText.replace(temp, texturl);
+		}
+		length = extList.length();
+		return extList.substring(0, length-2);
+	}
+	
 	private String extractDate(String date){
 		String dateReg1 = "([\\w\\s]*)(\\|)(\\d+)(\\|)(\\d+)(\\|)(\\d+)([\\w\\s\\W]*)";
 		String dateReg2 = "([\\w\\s]*)(\\|)([\\w\\s\\W]*?)(\\|)(\\d+)(\\|)(\\d+)(\\|)(\\d+)";
@@ -236,7 +253,10 @@ public class WikipediaParser {
 							((InfoboxFilms) infobox).setReleaseDate(data[1]
 									.trim());
 						} else if (("starring").equals(data[0].trim())) {
-							((InfoboxFilms) infobox).setActors(data[1].trim());
+							String starring = data[1].trim();
+							starring = extractList(starring);
+							((InfoboxFilms) infobox).setActors(starring);
+							//((InfoboxFilms) infobox).setActors(data[1].trim());
 						} else if (("country").equals(data[0].trim())) {
 							((InfoboxFilms) infobox).setCountry(data[1].trim());
 						}
@@ -327,8 +347,11 @@ public class WikipediaParser {
 							designation = extractText(designation);
 							leadersDesignation.add(designation);
 						} else if ((data[0].trim().matches("leader_name.?"))) {
-							String[] leader_parts = data[1].trim().split("\\ \\(");
-							String leader = extractText(leader_parts[0]);
+							//String[] leader_parts = data[1].trim().split("\\ \\(");
+							//System.out.println(data[1]);
+							String[] leader_parts = data[1].split("[\\(\\{\\<]");
+							//System.out.println(leader_parts[0].trim());
+							String leader = extractText(leader_parts[0].trim());
 							//String[] leader_parts = leader.split("\\ \\(");
 							leaders.add(leader);
 						} else if (("area_total_km2").equals(data[0].trim())) {
