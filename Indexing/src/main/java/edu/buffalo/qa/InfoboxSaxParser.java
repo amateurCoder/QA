@@ -1,5 +1,6 @@
 package edu.buffalo.qa;
 
+import java.text.ParseException;
 import java.util.Collection;
 
 import org.xml.sax.Attributes;
@@ -40,7 +41,12 @@ public class InfoboxSaxParser extends InfoboxParser implements ContentHandler {
 			boolText = false;
 		} else if (("page").equalsIgnoreCase(tagName)) {
 			 WikipediaParser wikipediaParser = new WikipediaParser(textBuilder.toString());
-			 infobox = wikipediaParser.getInfobox();
+			 try {
+				infobox = wikipediaParser.getInfobox();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			 if(null!=infobox){
 				 System.out.println("Added:"+ c);
 				 c++;

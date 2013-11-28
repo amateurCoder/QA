@@ -1,5 +1,7 @@
 package edu.buffalo.qa;
 
+import java.util.Date;
+
 import org.apache.solr.client.solrj.beans.Field;
 
 public class InfoboxFilms extends Infobox {
@@ -17,7 +19,8 @@ public class InfoboxFilms extends Infobox {
 	private String music;
 
 	@Field("release_date")
-	private String releaseDate;
+	//private String releaseDate;
+	private Date releaseDate;
 
 	@Field("actors")
 	private String actors;
@@ -25,12 +28,12 @@ public class InfoboxFilms extends Infobox {
 	@Field("country")
 	private String country;
 	
-	public String getReleaseDate() {
+	public Date getReleaseDate() {
 		return releaseDate;
 	}
 
-	public void setReleaseDate(String releaseDate) {
-		this.releaseDate = releaseDate;
+	public void setReleaseDate(Date iDate) {
+		this.releaseDate = iDate;
 	}
 	
 	public String getActors() {
