@@ -203,6 +203,7 @@ public class WikipediaParser {
 						} else if (("birth_date").equals(data[0].trim())) {
 							String date = data[1].trim();
 							date = extractDate(date);
+							System.out.println("Date:" + date);
 							((InfoboxPeople) infobox).setBirthDate(date);
 						} else if (("death_place").equals(data[0].trim())) {
 							String place = data[1].trim();
