@@ -17,7 +17,7 @@ public class Infobox {
 		return description;
 	}
 
-	@Field("descripton")
+	@Field("description")
 	public void setDescription(String description) {
 		this.description = description;
 	}

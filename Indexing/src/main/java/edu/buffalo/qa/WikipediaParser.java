@@ -166,6 +166,11 @@ public class WikipediaParser {
 	private String extractDate(String date) {
 		String dateReg1 = "([\\w\\s]*)(\\|)(\\d+)(\\|)(\\d+)(\\|)(\\d+)([\\w\\s\\W]*)";
 		String dateReg2 = "([\\w\\s]*)(\\|)([\\w\\s\\W]*?)(\\|)(\\d+)(\\|)(\\d+)(\\|)(\\d+)";
+		String dateReg3 = "(\\d{4})(\\|)(\\d{1,2})(\\|)(\\d{1,2})";
+		String dateReg4 = "(\\d{1,2})(\\ )([\\w]+)(\\ )(\\d{4})";
+		String[] months = {"January", "February", "March", "April", "May", "June", 
+				"July", "August", "September", "October", "November", "December"};
+		String dateReg5 = "(AD)(\\ )(\\d{1,3})";
 
 		if (date.matches(dateReg1)) {
 			String year = date.replaceAll(dateReg1, "$3");
@@ -191,6 +196,53 @@ public class WikipediaParser {
 				day = "0" + day;
 
 			date = year + month + day;
+		} else if (date.matches(dateReg3)) {
+			String year = date.replaceAll(dateReg3, "$1");
+			
+			String month = date.replaceAll(dateReg2, "$3");
+			if (month.length() == 1)
+				month = "0" + month;
+			
+			String day = date.replaceAll(dateReg2, "$5");
+			if (day.length() == 1)
+				day = "0" + day;
+			
+			date = year + month + day;
+		} else if (date.matches(dateReg4)){
+			int i = 1;
+			String month = date.replaceAll(dateReg4, "$3");
+			for(String m : months){
+				if(month.equals(m)){
+					month = Integer.toString(i);
+					break;
+				}
+				i = i + 1;
+			}
+			if (month.length() == 1)
+				month = "0" + month;
+			
+			if (month.length() > 2)
+				month = "01";
+			
+			String day = date.replaceAll(dateReg4, "$1");
+			if (day.length() == 1)
+				day = "0" + day;
+			
+			String year = date.replaceAll(dateReg4, "$5");
+			
+			date = year + month + day;
+		} else if(date.matches("\\d{4}")){
+			date = date + "0101";
+		} else if(date.matches(dateReg5)){
+			String year = date.replaceAll(dateReg5, "$3");
+			if(year.length() == 1)
+				date = "000" + year + "0101";
+			else if(year.length() == 2)
+				date = "00" + year + "0101";
+			else
+				date = "0" + year + "0101";
+		} else{
+			date = "19000101";
 		}
 
 		return date;
@@ -267,9 +319,11 @@ public class WikipediaParser {
 							((InfoboxPeople) infobox).setBirthPlace(place);
 						} else if (("birth_date").equals(data[0].trim())) {
 							String date = data[1].trim();
+							System.out.println("wiki birth date : " + date);
 							date = extractDate(date);
-							if (date.isEmpty())
-								date = "00000000";
+							System.out.println("parsed birth date : " + date);
+							/*if (date.isEmpty())
+								date = "00000000";*/
 							Date iDate = indexDate(date);
 							((InfoboxPeople) infobox).setBirthDate(iDate);
 						} else if (("death_place").equals(data[0].trim())) {
@@ -279,9 +333,11 @@ public class WikipediaParser {
 							((InfoboxPeople) infobox).setDeathPlace(place);
 						} else if (("death_date").equals(data[0].trim())) {
 							String date = data[1].trim();
+							System.out.println("wiki death date : " + date);
 							date = extractDate(date);
-							if (date.isEmpty())
-								date = "19000101";
+							System.out.println("parsed death date : " + date);
+							/*if (date.isEmpty())
+								date = "19000101";*/
 							Date iDate = indexDate(date);
 							((InfoboxPeople) infobox).setDeathDate(iDate);
 						} else if (("nationality").equals(data[0].trim())) {
@@ -296,8 +352,8 @@ public class WikipediaParser {
 							d = extractText(d);
 							d = cleanText(d);
 							d = d.replaceAll("\\n+", "\n");
-							System.out.println("DATA!!!");
-							System.out.println(d);
+							//System.out.println("DATA!!!");
+							//System.out.println(d);
 							infobox.setDescription(d);
 						}
 					}
@@ -360,8 +416,8 @@ public class WikipediaParser {
 							d = extractText(d);
 							d = cleanText(d);
 							d = d.replaceAll("\\n+", "\n");
-							System.out.println("DATA!!!");
-							System.out.println(d);
+							//System.out.println("DATA!!!");
+							//System.out.println(d);
 							infobox.setDescription(d);
 						}
 					}
@@ -512,9 +568,15 @@ public class WikipediaParser {
 							d = extractText(d);
 							d = cleanText(d);
 							d = d.replaceAll("\\n+", "\n");
-							System.out.println("DATA!!!");
-							System.out.println(d);
+							//System.out.println("DATA!!!");
+							//System.out.println(d);
 							infobox.setDescription(d);
+						} else if(("latitude").equalsIgnoreCase(data[0].trim())){
+							String lat = data[1].trim();
+							((InfoboxPlace) infobox).setLatitude(lat);
+						} else if(("longitude").equalsIgnoreCase(data[0].trim())){
+							String longitude = data[1].trim();
+							((InfoboxPlace) infobox).setLongitude(longitude);
 						}
 					}
 				}
