@@ -30,15 +30,19 @@ public class TypeAheadResponseWriter implements QueryResponseWriter {
 
 	public void write(Writer writer, SolrQueryRequest request,
 			SolrQueryResponse response) throws IOException {
+		System.out.println("Enter");
 		SolrIndexSearcher searcher = request.getSearcher();
 		NamedList nl = response.getValues();
 		ResultContext resultContext = (ResultContext) nl.get("response");
 		Object val = resultContext.docs;
+		System.out.println("Enter1");
 		if (val instanceof DocList) {
+			System.out.println("Enter2");
 			DocList dl = (DocList) val;
 			DocIterator iterator = dl.iterator();
 			writer.append("<ul>n");
 			while (iterator.hasNext()) {
+				System.out.println("Enter3");
 				int id = iterator.nextDoc();
 				Document doc = searcher.doc(id, fields);
 				String name = doc.get("name");
