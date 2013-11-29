@@ -22,19 +22,7 @@ public class InfoboxPeople extends Infobox {
 	
 	@Field("nationality")
 	private String nationality;
-	
-	/*@Field("description")
-	private String description;
 
-	public String getDescription() {
-		return description;
-	}
-
-	@Field("description")
-	public void setDescription(String description) {
-		this.description = description;
-	}
-*/
 	public String getNationality() {
 		return nationality;
 	}

@@ -58,6 +58,30 @@ public class InfoboxPlace extends Infobox {
 
 	@Field("utc_offset")
 	private String utcOffset;
+	
+	@Field("latitude")
+	private String latitude;
+	
+	@Field("longitude")
+	private String longitude;
+	
+	public String getLongitude() {
+		return longitude;
+	}
+
+	@Field("longitude")
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	@Field("latitude")
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
 
 	/*public String[] getOtherNames() {
 		return otherNames;
