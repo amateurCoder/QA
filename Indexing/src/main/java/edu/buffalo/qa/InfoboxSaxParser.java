@@ -51,7 +51,7 @@ public class InfoboxSaxParser extends InfoboxParser implements ContentHandler {
 				 System.out.println("Added:"+ c);
 				 c++;
 				 add(infobox, infoboxes);
-				 if(c==5000){
+				 if(c==10000){
 					throw new SAXTerminationException(); 
 				 }
 			 }
