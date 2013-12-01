@@ -36,8 +36,8 @@ public class InfoboxParser {
 			// if (filename != null && filename != "") {
 //			xmlReader.parse("src/main/files/aazzdffd.xml");
 			try{
-				xmlReader.parse("src/main/files/aazzdffd.xml");
-				//xmlReader.parse("/home/ankitsul/Courses/IR/projects/QA/Resources/enwiki-20131104-pages-articles-multistream.xml");	
+				xmlReader.parse("/home/ankitsul/Courses/IR/projects/QA/Resources/enwiki-20131104-pages-articles-multistream.xml");	
+//				xmlReader.parse("src/main/files/aazzdffd.xml");
 			}catch (SAXTerminationException e){
 				System.out.println("All documents added");
 			}

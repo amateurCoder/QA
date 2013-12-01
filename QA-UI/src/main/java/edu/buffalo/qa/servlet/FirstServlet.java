@@ -138,7 +138,7 @@ public class FirstServlet extends HttpServlet {
 			// here we can use one more variable like Collection and assign
 			// accordingly
 			
-			/*****************PEOPLE*************************/
+               /*****************PEOPLE*************************/
 			
 			if (type1.equalsIgnoreCase("who") && type2.equalsIgnoreCase("spouse")) {
 				ansType = "spouse"; // EXACT IndexField Name
@@ -227,6 +227,7 @@ public class FirstServlet extends HttpServlet {
 				ansType = "release_date";
 				url = url + "films";
 			}
+			
 
 			HttpSolrServer server = new HttpSolrServer(url);
 			SolrQuery solrQuery = new SolrQuery().setQuery(properNoun).
@@ -322,4 +323,5 @@ public class FirstServlet extends HttpServlet {
 
 	}
 
+>>>>>>> 05db8ca57cde7ef91dab80ec2d250388bb5b7384
 }

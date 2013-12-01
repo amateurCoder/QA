@@ -76,7 +76,7 @@ public class WikipediaParser {
 					"\\{\\{(Infobox.*[\\r\\n](?:\\|.*[\\r\\n])+)\\}\\}[\\r\\n]+[\\w\\s\\W]*?\\.[\\w\\s\\W]*?\\.[\\w\\s\\W]*?\\.")
 					.matcher(text);
 			while (m.find()) {
-				if (count <= 5000) {
+				if (count <= 10000) {
 					System.out.println("Counter:" + count);
 					// Create Infobox objects
 					if ("people".equals(type)) {

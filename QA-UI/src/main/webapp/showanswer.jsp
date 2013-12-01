@@ -1,36 +1,20 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false"
+    pageEncoding="UTF-8"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head><title>UB Ask </title>
 <link rel="stylesheet"
       href="./css/styles.css"
       type="text/css"/>
-       <link rel="stylesheet" href="./bootstrap/css/bootstrap.css" /> 
-<link rel="stylesheet" href="./bootstrap/css/bootstrap-responsive.css" /> 
-
-<!-- Set the viewport width to device width for mobile -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- 
-<link rel="stylesheet" href="./css/bootstrap.min.css" />
--->
-
-
+<!-- <link rel="stylesheet" href="./bootstrap/css/bootstrap.css" /> 
+<link rel="stylesheet" href="./bootstrap/css/bootstrap-responsive.css" />  -->
 
 <link href='http://fonts.googleapis.com/css?family=Raleway:400' rel='stylesheet' type='text/css'>
 
-<script src="./js/jquery-1.8.3.min.js" type="text/javascript"></script>
-<script src="./bootstrap/js/bootstrap.js"></script>
-
-<script src="./js/script.js"></script>
-
-<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-
-<link rel="stylesheet" href="./css/bootstrap-extension.css" />
-      
+     
 </head>
-
 <body>
-
 <div style="background-image:url(img/UBimage.jpg);padding-bottom:2px;background-size:100% 100%;background-repeat:no-repeat" >
   <div class="hidden-phone" style="padding:30px 30px 0px 30px;margin-bottom:1px;">
     <div class="container">
@@ -48,37 +32,27 @@
       </div>
 	<form action="FirstServlet"><div class="input-append">
 		 <div style="margin-bottom:17px;margin-left:45px;">  
-			<input style="height:28px;font-size:.9em" placeholder="ask START a question" type="text" name="question" size="70" value="" x-webkit-speech />
+			<input style="height:28px;font-size:.9em" type="text" value = "<%= request.getAttribute("question").toString() %> " name="question" size="70" value="" x-webkit-speech />
         	<button style="height:35px" type="submit">Ask Question <i class="icon-chevron-right icon-white" style="vertical-align:text-bottom;"></i></button>
   		 </div>
   </div>     
  </form>
  </div>
  <br>
-<fieldset>
-
-<legend>Questions about People</legend>
-<ul>
-  <li><a href="FirstServlet?linkquestion=Where was Ivan Smolovic born">Where was Ivan Smolovic born?</a></li>
  
-</ul>
-</fieldset>
-<p/>
-<fieldset>
-<legend>Questions about Places</legend>
-<ul>
-   <li><a href="FirstServlet?linkquestion=Who is the director of Shawshank Redemption">Who is the director of Shawshank Redemption?</a></li>
-  
-</ul>
-</fieldset>
-<p/>
-<fieldset>
-<legend>Questions about Films</legend>
-<ul>
-   <li><a href="FirstServlet?linkquestion=Who is the director of Shawshank Redemption">Who is the director of Shawshank Redemption?</a></li>
+ 
+<h2>Answer: <%= request.getAttribute("answer").toString() %> </h2>
 
-</ul>
-</fieldset>
-<p/>
+
+<script>
+var string='${suggestion}';
+if(string!="" )
+	{
+var result = string.link("FirstServlet?question="+string);
+document.getElementById("demo").innerHTML=result;
+	}
+</script>
+Did you mean:
+<p id="demo"></p>
 </body>
-</html> 
+</html>
