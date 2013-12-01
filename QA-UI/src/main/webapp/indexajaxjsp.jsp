@@ -1,43 +1,42 @@
 <%@page import="java.sql.*"%>
 <html>
 <head>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
- </script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script type="text/javascript">
+
 function showData(value){ 
+	var val = new Array();
+	val = value.split(" ");
+	 var x = val.length-1;
 $.ajax({
-    url : "http://localhost:8983/solr/people/type-ahead?q=Ivan"+value,
+    url : "FirstTemp?question="+value,
     type : "GET",
     async : false,
+    dataType: "text",
     success : function(data) {
 //Do something with the data here
-alert("Hello");
-alert(data);
+	var dbdata=[]; 
+	dbdata=JSON.parse(data);  
+    	$("#name").autocomplete({ 
+    		source: dbdata
+    		}); 
     },
 	error : function(xhr,ajaxOptions,thrownError) {
-	//Do something with the data here
-	alert("Hi1");
 	alert(xhr.status);
-	alert("Hi2");
 	alert(thrownError);
-	alert("Hi3");
 	    }
 });
-alert("Hi"+data)
 }
-
-
 </script>
 </head>
 <body>
-<form name="employee">
 <div class="ui-widget">
-  <input type="text"  id="name" onkeyup="showData(this.value);">
+  <label for="name">Question: </label>
+  <input type="text" id="name" onkeyup="showData(this.value);">
 </div>
- 
-<br>
-
-
 </table>
 </body>
 </html>
