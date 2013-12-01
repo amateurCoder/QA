@@ -322,6 +322,4 @@ public class FirstServlet extends HttpServlet {
 		}
 
 	}
-
->>>>>>> 05db8ca57cde7ef91dab80ec2d250388bb5b7384
 }

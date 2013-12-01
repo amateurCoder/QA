@@ -14,7 +14,7 @@ public class InfoboxSaxParser extends InfoboxParser implements ContentHandler {
 	private StringBuilder textBuilder;
 	private Infobox infobox;
 	private Collection<Infobox> infoboxes;
-	static int c=0;
+	static int c = 0;
 
 	public InfoboxSaxParser(Collection<Infobox> infoboxes) {
 		this.infoboxes = infoboxes;
@@ -40,21 +40,20 @@ public class InfoboxSaxParser extends InfoboxParser implements ContentHandler {
 		if (("text").equalsIgnoreCase(tagName)) {
 			boolText = false;
 		} else if (("page").equalsIgnoreCase(tagName)) {
-			 WikipediaParser wikipediaParser = new WikipediaParser(textBuilder.toString());
-			 try {
+			WikipediaParser wikipediaParser = new WikipediaParser(
+					textBuilder.toString());
+			try {
 				infobox = wikipediaParser.getInfobox();
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-			 if(null!=infobox){
-				 System.out.println("Added:"+ c);
-				 c++;
-				 add(infobox, infoboxes);
-				 if(c==10000){
-					throw new SAXTerminationException(); 
-				 }
-			 }
+			if (null != infobox) {
+				System.out.println("Added:" + c);
+				c++;
+				add(infobox, infoboxes);
+				if (c == 10000) {
+					throw new SAXTerminationException();
+				}
+			}
 		}
 	}
 

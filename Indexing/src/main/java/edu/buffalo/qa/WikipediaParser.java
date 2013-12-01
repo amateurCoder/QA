@@ -77,7 +77,7 @@ public class WikipediaParser {
 					.matcher(text);
 			while (m.find()) {
 				if (count <= 10000) {
-					System.out.println("Counter:" + count);
+//					System.out.println("Counter:" + count);
 					// Create Infobox objects
 					if ("people".equals(type)) {
 						infobox = parseInfoBox(m.group(0), PEOPLE);
@@ -367,8 +367,8 @@ public class WikipediaParser {
 							d = extractText(d);
 							d = cleanText(d);
 							d = d.replaceAll("\\n+", "\n");
-							System.out.println("DATA!!!");
-							System.out.println(d);
+//							System.out.println("DATA!!!");
+//							System.out.println(d);
 							infobox.setDescription(d);
 						}
 					}
@@ -431,8 +431,8 @@ public class WikipediaParser {
 							d = extractText(d);
 							d = cleanText(d);
 							d = d.replaceAll("\\n+", "\n");
-							System.out.println("DATA!!!");
-							System.out.println(d);
+//							System.out.println("DATA!!!");
+//							System.out.println(d);
 							infobox.setDescription(d);
 						}
 					}
@@ -583,8 +583,8 @@ public class WikipediaParser {
 							d = extractText(d);
 							d = cleanText(d);
 							d = d.replaceAll("\\n+", "\n");
-							System.out.println("DATA!!!");
-							System.out.println(d);
+//							System.out.println("DATA!!!");
+//							System.out.println(d);
 							infobox.setDescription(d);
 						} else if(("latitude").equalsIgnoreCase(data[0].trim())){
 							String lat = data[1].trim();
