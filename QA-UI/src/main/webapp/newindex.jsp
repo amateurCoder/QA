@@ -13,24 +13,51 @@
 <!-- 
 <link rel="stylesheet" href="./css/bootstrap.min.css" />
 -->
-
-
-
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Raleway:400' rel='stylesheet' type='text/css'>
-
 <script src="./js/jquery-1.8.3.min.js" type="text/javascript"></script>
 <script src="./bootstrap/js/bootstrap.js"></script>
-
 <script src="./js/script.js"></script>
-
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-
 <link rel="stylesheet" href="./css/bootstrap-extension.css" />
-      
+
+<script type="text/javascript">
+
+function showData(value){ 
+	var val = new Array();
+	val = value.split(" ");
+	 var x = val.length-1;
+$.ajax({
+    url : "FirstTemp?question="+value,
+    type : "GET",
+    async : false,
+    dataType: "text",
+    success : function(data) {
+//Do something with the data here
+	var dbdata=[]; 
+	dbdata=JSON.parse(data);  
+    	$("#question").autocomplete({ 
+    		source: dbdata
+    		}); 
+    },
+	error : function(xhr,ajaxOptions,thrownError) {
+	alert(xhr.status);
+	alert(thrownError);
+	    }
+});
+}
+</script>  
+<meta charset="UTF-8">
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8"> 
 </head>
-
+<meta charset="UTF-8">
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
 <body>
-
+<meta charset="UTF-8">
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
 <div style="background-image:url(img/UBimage.jpg);padding-bottom:2px;background-size:100% 100%;background-repeat:no-repeat" >
   <div class="hidden-phone" style="padding:30px 30px 0px 30px;margin-bottom:1px;">
     <div class="container">
@@ -48,8 +75,11 @@
       </div>
 	<form action="FirstServlet"><div class="input-append">
 		 <div style="margin-bottom:17px;margin-left:45px;">  
-			<input style="height:28px;font-size:.9em" placeholder="ask START a question" type="text" name="question" size="70" value="" x-webkit-speech />
+		 	<div class="ui-widget">
+		 	<label for="name"></label>
+			<input style="height:28px;font-size:.9em" placeholder="ask START a question" type="text" id = "question" name="question" onkeyup="showData(this.value);" size="70" value="" x-webkit-speech />
         	<button style="height:35px" type="submit">Ask Question <i class="icon-chevron-right icon-white" style="vertical-align:text-bottom;"></i></button>
+  		 </div>
   		 </div>
   </div>     
  </form>
