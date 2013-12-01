@@ -350,6 +350,16 @@ public class WikipediaParser {
 							nationality = extractText(nationality);
 							nationality = cleanText(nationality);
 							((InfoboxPeople) infobox).setNationality(nationality);
+						} else if (("alma_mater").equals(data[0].trim())){
+							String alma_mater = data[1].trim();
+							alma_mater = extractList(alma_mater);
+							alma_mater = cleanText(alma_mater);
+							((InfoboxPeople) infobox).setAlmaMater(alma_mater);
+						} else if (("spouse").equals(data[0].trim())){
+							String spouse = data[1].trim();
+							spouse = extractList(spouse);
+							spouse = cleanText(spouse);
+							((InfoboxPeople) infobox).setSpouse(spouse);
 						} else if(i == len - 1){
 							String[] description = data[1].split("\\n", 2);
 							int l = description.length;

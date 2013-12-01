@@ -22,6 +22,28 @@ public class InfoboxPeople extends Infobox {
 	
 	@Field("nationality")
 	private String nationality;
+	
+	@Field("alma_mater")
+	private String alma_mater;
+	
+	@Field("spouse")
+	private String spouse;
+
+	public String getSpouse() {
+		return spouse;
+	}
+
+	public void setSpouse(String spouse) {
+		this.spouse = spouse;
+	}
+
+	public String getAlmaMater() {
+		return alma_mater;
+	}
+
+	public void setAlmaMater(String alma_mater) {
+		this.alma_mater = alma_mater;
+	}
 
 	public String getNationality() {
 		return nationality;
