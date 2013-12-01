@@ -103,106 +103,110 @@ public class FirstServlet extends HttpServlet {
 						
 			replacewith.replaceAll("^\\s+", "").replaceAll("\\s+$", "");
 					
-			String ansType = "dummy"; 
+			System.out.print(orgQues);
 			
-			 
-            if (type1.equalsIgnoreCase("who") && type2.equalsIgnoreCase("spouse")) {
-                    ansType = "spouse"; 
-                    url=url+"people";                 
-            } 
-            else if (type1.equalsIgnoreCase("where") && type2.equalsIgnoreCase("born")) {
-                    ansType = "birth_place";
-                    url=url+"people";
-            } 
-            else if (type1.equalsIgnoreCase("what") && type2.equalsIgnoreCase("nationality")){
-                    ansType = "nationality";
-                    url=url+"people";
-            }
-            else if (type1.equalsIgnoreCase("what") && type2.equalsIgnoreCase("alma_mater")){
-                    ansType = "alma_mater";
-                    url=url+"people";
-            }
-            else if (type1.equalsIgnoreCase("where") && type2.equalsIgnoreCase("education")){
-                    ansType = "alma_mater";
-                    url=url+"people";
-            }
-            
-            
-            /******************************PLACES********************************/
-            
-            else if (type1.equalsIgnoreCase("what") && type2.equalsIgnoreCase("latitude")){
-                    ansType = "latitude";
-                    url=url+"places";
-            } 
-            else if (type1.equalsIgnoreCase("what") && type2.equalsIgnoreCase("longitude")){
-                    ansType = "longitude";
-                    url=url+"places";
-            } 
-            else if (type1.equalsIgnoreCase("what") && type2.equalsIgnoreCase("population")){
-                    ansType = "total_population";
-                    url=url+"places";
-            } 
-            else if (type1.equalsIgnoreCase("who") && type2.equalsIgnoreCase("leaders")){
-                    ansType = "leaders";
-                    url=url+"places";
-            } 
-            else if (type1.equalsIgnoreCase("what") && type2.equalsIgnoreCase("area")){
-                    ansType = "area_km_squares";
-                    url=url+"places";
-            } 
-            else if (type1.equalsIgnoreCase("which") && type2.equalsIgnoreCase("leaders")){
-                    ansType = "leaders";
-                    url=url+"places";
-            } 
-            else if (type1.equalsIgnoreCase("which") && type2.equalsIgnoreCase("timezone")){
-                    ansType = "timezone";
-                    url=url+"places";
-            } 
-            else if(type1.equalsIgnoreCase("where") && type2.equalsIgnoreCase("born")){
-                    ansType = "birth_place";
-                    url=url+"places";
-            } 
-            
-            /********************************FILMS**************************************/
-            
-            else if (type1.equalsIgnoreCase("who") && type2.equalsIgnoreCase("director")) {
-                    ansType = "director";
-                    url=url+"films";                                
-            } 
-            else if (type1.equalsIgnoreCase("who") && type2.equalsIgnoreCase("producer")){
-                    ansType = "producer";
-                    url=url+"films";
-            }
-            else if (type1.equalsIgnoreCase("who") && type2.equalsIgnoreCase("screenplay")){
-                    ansType = "screenplay";
-                    url=url+"films";
-            }
-            else if (type1.equalsIgnoreCase("who") && type2.equalsIgnoreCase("music")){
-                    ansType = "music";
-                    url=url+"films";
-            }
-            else if (type1.equalsIgnoreCase("which") && type2.equalsIgnoreCase("actors")){
-                    ansType = "actors";
-                    url = url + "films";
-            }
-            else if (type1.equalsIgnoreCase("when") && type2.equalsIgnoreCase("release")){
-                    ansType = "release_date";
-                    url = url + "films";
-            }
-			// if question is miss spelt
-			else
-			{   bool=true;
-				properNoun=userInput;
-				ansType = "name";
+			
+			
+			//System.out.print(properNoun);
+			//System.out.print(correctQuestion);
+			
+			String ansType = "dummy"; // use conditions of type1 and type to
+										// find this and add more types like description
+
+			// write all possible combinations of questions which our QA system
+			// is supposed to support ...........
+			// from all three types of parts ppl,place,film
+			// here we can use one more variable like Collection and assign
+			// accordingly
+			
+               /*****************PEOPLE*************************/
+			
+			if (type1.equalsIgnoreCase("who") && type2.equalsIgnoreCase("spouse")) {
+				ansType = "spouse"; // EXACT IndexField Name
+
 				url=url+"people";
 				
-				if(properNoun.isEmpty()==false && type1.isEmpty()==true && type2.isEmpty()==true)
-				{
-					bool_Single=true;
-					ansType="* ";
-					//url=url+"people";					
-				}				
-				
+				// Collection/Core to search : PeopleCollection /
+				// MovieCollection / Place Collection
+			} 
+			else if (type1.equalsIgnoreCase("where") && type2.equalsIgnoreCase("born")) {
+				ansType = "birth_place";
+				url=url+"people";
+			} 
+			else if (type1.equalsIgnoreCase("what") && type2.equalsIgnoreCase("nationality")){
+				ansType = "nationality";
+				url=url+"people";
+			}
+			else if (type1.equalsIgnoreCase("what") && type2.equalsIgnoreCase("alma_mater")){
+				ansType = "alma_mater";
+				url=url+"people";
+			}
+			else if (type1.equalsIgnoreCase("where") && type2.equalsIgnoreCase("education")){
+				ansType = "alma_mater";
+				url=url+"people";
+			}
+			
+			
+			/******************************PLACES********************************/
+			
+			else if (type1.equalsIgnoreCase("what") && type2.equalsIgnoreCase("latitude")){
+				ansType = "latitude";
+				url=url+"places";
+			} 
+			else if (type1.equalsIgnoreCase("what") && type2.equalsIgnoreCase("longitude")){
+				ansType = "longitude";
+				url=url+"places";
+			} 
+			else if (type1.equalsIgnoreCase("what") && type2.equalsIgnoreCase("population")){
+				ansType = "total_population";
+				url=url+"places";
+			} 
+			else if (type1.equalsIgnoreCase("who") && type2.equalsIgnoreCase("leaders")){
+				ansType = "leaders";
+				url=url+"places";
+			} 
+			else if (type1.equalsIgnoreCase("what") && type2.equalsIgnoreCase("area")){
+				ansType = "area_km_squares";
+				url=url+"places";
+			} 
+			else if (type1.equalsIgnoreCase("which") && type2.equalsIgnoreCase("leaders")){
+				ansType = "leaders";
+				url=url+"places";
+			} 
+			else if (type1.equalsIgnoreCase("which") && type2.equalsIgnoreCase("timezone")){
+				ansType = "timezone";
+				url=url+"places";
+			} 
+			else if(type1.equalsIgnoreCase("where") && type2.equalsIgnoreCase("born")){
+				ansType = "birth_place";
+				url=url+"places";
+			} 
+			
+			/********************************FILMS**************************************/
+			
+			else if (type1.equalsIgnoreCase("who") && type2.equalsIgnoreCase("director")) {
+				ansType = "director";
+				url=url+"films";				
+			} 
+			else if (type1.equalsIgnoreCase("who") && type2.equalsIgnoreCase("producer")){
+				ansType = "producer";
+				url=url+"films";
+			}
+			else if (type1.equalsIgnoreCase("who") && type2.equalsIgnoreCase("screenplay")){
+				ansType = "screenplay";
+				url=url+"films";
+			}
+			else if (type1.equalsIgnoreCase("who") && type2.equalsIgnoreCase("music")){
+				ansType = "music";
+				url=url+"films";
+			}
+			else if (type1.equalsIgnoreCase("which") && type2.equalsIgnoreCase("actors")){
+				ansType = "actors";
+				url = url + "films";
+			}
+			else if (type1.equalsIgnoreCase("when") && type2.equalsIgnoreCase("release")){
+				ansType = "release_date";
+				url = url + "films";
 			}
 			
 

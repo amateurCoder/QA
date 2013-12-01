@@ -119,7 +119,7 @@ public class WikipediaParser {
 
 		if (null != text) {
 			if (text.matches(simplelinkRegex)) {
-				str = text.replaceAll(simplelinkRegex, "$3");
+				str = text.replaceAll(simplelinkRegex, "$1");
 			} else if (text.matches(droplineRegex)) {
 				String drPart1 = text.replaceAll(droplineRegex, "$1");
 				str = drPart1;
@@ -277,6 +277,8 @@ public class WikipediaParser {
 		String tagReg2 = "&lt;[\\w\\W\\s]*?&gt;[\\w\\W\\s]*?&lt;[\\w\\W\\s]*?\\/&gt;";
 		String tagReg3 = "<[\\w\\W\\s]*?>[\\w\\W\\s]*";
 		String tagReg4 = "&lt;[\\w\\W\\s]*?&gt;[\\w\\W\\s]*";
+		String roundReg = "\\([\\w\\W\\s]*";
+		String sqrReg = "\\[[\\w\\W\\s]*";
 		
 		data = data.replaceAll("\\'", "");
 		data = data.replaceAll("\\(.*?\\)", "");
@@ -286,7 +288,10 @@ public class WikipediaParser {
 		data = data.replaceAll(tagReg3, "");
 		data = data.replaceAll(tagReg4, "");
 		data = data.replace("\\[[\\w\\W\\s]*?\\]", "");
-		//data = data.replaceAll("{{.*?}}", "");
+		data = data.replaceAll("\\{{2}.*?\\}{2}", "");
+		data = data.replaceAll("\\=[\\w\\W\\s]+?\\=", "");
+		data = data.replaceAll(roundReg, "");
+		data = data.replaceAll(sqrReg, "");
 		data = data.replaceAll("\\ +", " ");
 		return data;
 	}
@@ -319,9 +324,9 @@ public class WikipediaParser {
 							((InfoboxPeople) infobox).setBirthPlace(place);
 						} else if (("birth_date").equals(data[0].trim())) {
 							String date = data[1].trim();
-							System.out.println("wiki birth date : " + date);
+							//System.out.println("wiki birth date : " + date);
 							date = extractDate(date);
-							System.out.println("parsed birth date : " + date);
+							//System.out.println("parsed birth date : " + date);
 							/*if (date.isEmpty())
 								date = "00000000";*/
 							Date iDate = indexDate(date);
@@ -333,9 +338,9 @@ public class WikipediaParser {
 							((InfoboxPeople) infobox).setDeathPlace(place);
 						} else if (("death_date").equals(data[0].trim())) {
 							String date = data[1].trim();
-							System.out.println("wiki death date : " + date);
+							//System.out.println("wiki death date : " + date);
 							date = extractDate(date);
-							System.out.println("parsed death date : " + date);
+							//System.out.println("parsed death date : " + date);
 							/*if (date.isEmpty())
 								date = "19000101";*/
 							Date iDate = indexDate(date);
@@ -345,6 +350,16 @@ public class WikipediaParser {
 							nationality = extractText(nationality);
 							nationality = cleanText(nationality);
 							((InfoboxPeople) infobox).setNationality(nationality);
+						} else if (("alma_mater").equals(data[0].trim())){
+							String alma_mater = data[1].trim();
+							alma_mater = extractList(alma_mater);
+							alma_mater = cleanText(alma_mater);
+							((InfoboxPeople) infobox).setAlmaMater(alma_mater);
+						} else if (("spouse").equals(data[0].trim())){
+							String spouse = data[1].trim();
+							spouse = extractList(spouse);
+							spouse = cleanText(spouse);
+							((InfoboxPeople) infobox).setSpouse(spouse);
 						} else if(i == len - 1){
 							String[] description = data[1].split("\\n", 2);
 							int l = description.length;
@@ -352,8 +367,8 @@ public class WikipediaParser {
 							d = extractText(d);
 							d = cleanText(d);
 							d = d.replaceAll("\\n+", "\n");
-							//System.out.println("DATA!!!");
-							//System.out.println(d);
+							System.out.println("DATA!!!");
+							System.out.println(d);
 							infobox.setDescription(d);
 						}
 					}
@@ -416,8 +431,8 @@ public class WikipediaParser {
 							d = extractText(d);
 							d = cleanText(d);
 							d = d.replaceAll("\\n+", "\n");
-							//System.out.println("DATA!!!");
-							//System.out.println(d);
+							System.out.println("DATA!!!");
+							System.out.println(d);
 							infobox.setDescription(d);
 						}
 					}
@@ -568,8 +583,8 @@ public class WikipediaParser {
 							d = extractText(d);
 							d = cleanText(d);
 							d = d.replaceAll("\\n+", "\n");
-							//System.out.println("DATA!!!");
-							//System.out.println(d);
+							System.out.println("DATA!!!");
+							System.out.println(d);
 							infobox.setDescription(d);
 						} else if(("latitude").equalsIgnoreCase(data[0].trim())){
 							String lat = data[1].trim();
