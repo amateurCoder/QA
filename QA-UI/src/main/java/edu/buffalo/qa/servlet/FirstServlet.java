@@ -1,10 +1,8 @@
 package edu.buffalo.qa.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map.Entry;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,19 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
-import org.apache.solr.client.solrj.response.GroupResponse;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.response.SpellCheckResponse;
 import org.apache.solr.client.solrj.response.SpellCheckResponse.Collation;
-import org.apache.solr.client.solrj.response.SpellCheckResponse.Suggestion;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.params.ModifiableSolrParams;
-
-import edu.stanford.nlp.dcoref.CoNLL2011DocumentReader.Document;
 
 /**
  * Servlet implementation class FirstServlet
@@ -102,31 +95,12 @@ public class FirstServlet extends HttpServlet {
 
 			replacewith.replaceAll("^\\s+", "").replaceAll("\\s+$", "");
 
-			System.out.print(orgQues);
-
-			// System.out.print(properNoun);
-			// System.out.print(correctQuestion);
-
-			String ansType = "dummy"; // use conditions of type1 and type to
-										// find this and add more types like
-										// description
-
-			// write all possible combinations of questions which our QA system
-			// is supposed to support ...........
-			// from all three types of parts ppl,place,film
-			// here we can use one more variable like Collection and assign
-			// accordingly
-
-			/***************** PEOPLE *************************/
+			String ansType = "dummy";
 
 			if (type1.equalsIgnoreCase("who")
 					&& type2.equalsIgnoreCase("spouse")) {
-				ansType = "spouse"; // EXACT IndexField Name
-
+				ansType = "spouse";
 				url = url + "people";
-
-				// Collection/Core to search : PeopleCollection /
-				// MovieCollection / Place Collection
 			} else if (type1.equalsIgnoreCase("where")
 					&& type2.equalsIgnoreCase("born")) {
 				ansType = "birth_place";
@@ -207,6 +181,21 @@ public class FirstServlet extends HttpServlet {
 					&& type2.equalsIgnoreCase("release")) {
 				ansType = "release_date";
 				url = url + "films";
+			}
+			// if question is miss spelt
+			else {
+				bool = true;
+				properNoun = userInput;
+				ansType = "name";
+				url = url + "people";
+
+				if (properNoun.isEmpty() == false && type1.isEmpty() == true
+						&& type2.isEmpty() == true) {
+					bool_Single = true;
+					ansType = "* ";
+					// url=url+"people";
+				}
+
 			}
 
 			HttpSolrServer server = new HttpSolrServer(url);
