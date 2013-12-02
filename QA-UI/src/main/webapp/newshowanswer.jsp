@@ -18,6 +18,7 @@
 <script type="text/javascript">
 
 function showData(value){ 
+	
 	var val = new Array();
 	val = value.split(" ");
 	 var x = val.length-1;
@@ -42,20 +43,25 @@ $.ajax({
 }
 </script>
 <script>
-var string ='${suggestion}';
-var suggest = [];
-var link;
-var linkname;
-suggest = string.split(",");
-//for(var i = 0; i < suggest.length; i++) {alert(suggest[i]);}
-var spellstring='${spellsuggestion}';
-var spellsuggest = [];
-var spelllink;
-var spelllinkname;
-spellsuggest = spellstring.split(",");
+
+
 window.onload = function() {
+	var string ='${suggestion}';
+	var suggest = [];
+	var link;
+	var linkname;
+	suggest = string.split(",");
+	//for(var i = 0; i < suggest.length; i++) {alert(suggest[i]);}
+	var spellstring='${spellsuggestion}';
+
+
+	var spellsuggest = [];
+	var spelllink;
+	var spelllinkname;
+	spellsuggest = spellstring.split(",");
 	if(suggest!="")
 	   	{
+		
 	       for(var i = 0; i < 6; i++) 
 	       {
 	       link = "FirstServlet?question="+suggest[i];
@@ -65,19 +71,18 @@ window.onload = function() {
 	   	   document.getElementById(linkname).innerHTML=suggest[i];
 	       document.getElementById("label1").innerHTML = "<i>More like these:</i> ";
 	       }
-	
-	     
 	}
 	if(spellsuggest!="")
    	{
+	
        for(var i = 0; i < 2; i++) 
        {
        spelllink = "FirstServlet?question="+spellsuggest[i];
        spelllinkname="dym"+i;
-       //alert(linkname);
+       //alert(spelllinkname);
        document.getElementById(spelllinkname).href=spelllink;
    	   document.getElementById(spelllinkname).innerHTML=spellsuggest[i];
-       document.getElementById("label1").innerHTML = "<i>Did you mean:</i> ";
+       document.getElementById("label2").innerHTML = "<i>Did you mean:</i> ";
        }
       
 }
@@ -114,6 +119,7 @@ window.onload = function() {
  </form>
  </div>
  <br>
+ <img style="float:right" src="GetImage"/>
  <h4><i>Showing results for: </i><%= request.getAttribute("answerfor").toString() %></h4>
 <h1>Answer: <%= request.getAttribute("answer").toString() %> </h1>
 <br>

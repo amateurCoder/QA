@@ -73,12 +73,21 @@ $.ajax({
  </div>
  <br>
  <h1 align="center" >Biography</h1>
- <h2><i><%= request.getAttribute("Field1").toString() %></i></h2>
+ <%-- <h2><i><%= request.getAttribute("Field1").toString() %></i></h2>
  <h2><i><%= request.getAttribute("Field2").toString() %></i></h2>
   <h2><i><%= request.getAttribute("Field3").toString() %></i></h2>
    <h2><i><%= request.getAttribute("Field4").toString() %></i></h2>
     <h2><i><%= request.getAttribute("Field5").toString() %></i></h2>
-     <h2><i><%= request.getAttribute("Field6").toString() %></i></h2>
+     <h2><i><%= request.getAttribute("Field6").toString() %></i></h2> --%>
+     <h2><i>${Field1}</i></h2>
+      <h2><i>${Field2}</i></h2>
+      <h2><i>${Field3}</i></h2>
+      <h2><i>${Field4}</i></h2>
+      <h2><i>${Field5}</i></h2>
+      <h2><i>${Field6}</i></h2>
+     
+     <img src="GetImage"/>
+
 <br>
 
 </body>
